@@ -26,6 +26,9 @@
     <!-- experiment specific helper functions -->
     <!-- <script src="js/local-utils.js"></script> -->
 
+    <!--  Generates UUID codes for participant id -->
+    <script src="https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js"></script>
+
     <!--CSS-->
     <link href="./_shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
     <link href="./_shared/css/cocolab-style.css" rel="stylesheet" type="text/css"/>
@@ -56,9 +59,18 @@
 
   <div class="slide" id="single_trial">
     <p class="display_condition"></p>
-      <label><input type="radio"  name="pet" value="No"/>No</label>
-      <label><input type="radio"  name="pet" value="Yes"/>Yes</label>
-      <br>
+
+    <div class="trial_option">
+      <div class="target_img"></div>
+      <input type="radio" name="selection" value="target">
+    </div>
+
+    <div class="trial_option">
+      <div class="competitor_img"></div>
+      <input type="radio" name="selection" value="competitor">
+    </div>
+
+    <br>
     <button onclick="_s.button()">Continue</button>
     <p class="err">Please click a button.</p>
   </div>
@@ -103,7 +115,7 @@
       <p>Native Language: <input type="text" id="language"/></p>
       <label>(the language(s) spoken at home when you were a child)</label>
 
-      <p>Did you enjoy the hit?</p>
+      <p>Did you enjoy the HIT?</p>
       <select id="enjoyment">
         <label><option value="-1"></option></label>
         <label><option value="0">Worse than the Average HIT</option></label>
