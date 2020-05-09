@@ -22,13 +22,17 @@ function make_slides(f) {
       $(".err").hide();
       this.stim = stim;
       console.log(stim.audio);
+      var target_img = $("<img />")
+      target_img.attr("src", 'images/' + stim.target_image)
+      var comp_img = $("<img />")
+      comp_img.attr("src", 'images/' + stim.comp_image)
       var audio = $("<audio />")
-
-
-        .attr("src", "audio/" + stim.audio)
+        .attr("src", "audio/continua/" + stim.stim_audio)
         .attr("autoplay", true)
 
       $(".display_condition").append(audio)
+      $(".target_img").append(target_img)
+      $(".comp_img").append(comp_img)
 
 
     },
@@ -48,8 +52,8 @@ function make_slides(f) {
     },
     log_responses : function() {
       exp.data_trials.push({
-        "trial_type" : "pet_trial",
-        "pet" : this.stim.item,
+        "trial_type" : this.stim.phase,
+        "participant_id" : uuidv4(),
         "response" : this.response
       });
     }
@@ -98,6 +102,7 @@ function init() {
   exp.catch_trials = [];
 
   // load from stims the sample data and then shuffle
+  // two variables; one for exposure, one for experimental; each shuffled
   exp.all_stims = _.shuffle(stimuli); //can randomize between subject conditions here
   exp.system = {
       Browser : BrowserDetect.browser,
