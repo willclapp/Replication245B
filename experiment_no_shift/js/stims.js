@@ -25,8 +25,8 @@
 
 var stimuli = [
 	{
-		target_image: 'rainbow_good.jpeg',
-		comp_image: 'rainbow_bad.jpeg',
+		target_image: 'butterfly_good.jpeg',
+		comp_image: 'butterfly_bad.jpeg',
 		stim_audio: 'cake-2-3-9.wav',
 	}
 ]

@@ -44,8 +44,8 @@
   <noscript>This task requires JavaScript.</noscript>
 
   <div class="slide" id="i0" >
-    <img src="./_shared/images/cocologo.png" alt="Stanford CoCoLab" id="cocologo"></img>
-    <p id="cocolab">Stanford CoCoLab</p>
+    <img src="./_shared/images/stanford.png" alt="Stanford CoCoLab" id="cocologo"></img>
+    <p id="cocolab">Stanford Linguistics</p>
     <p id="instruct-text">You will see {{}} and be asked some questions about them. The HIT should take ~{{}} minutes. Please pay attention, thanks!</p>
     <button id="start_button" type="button">Start Experiment</button>
     <p id="legal">Legal information: By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact Erin Bennett at <a href="mailto://erindb@stanford.edu">erindb@stanford.edu</a> or Noah Goodman, at ngoodman@stanford.edu. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
@@ -60,6 +60,8 @@
   <div class="slide" id="single_trial">
     <p class="display_condition"></p>
 
+  
+  <div class='trial_options_container'>
     <div class="trial_option">
       <div class="target_img"></div>
       <input type="radio" name="selection" value="target">
@@ -69,6 +71,7 @@
       <div class="comp_img"></div>
       <input type="radio" name="selection" value="competitor">
     </div>
+  </div>
 
     <br>
     <button onclick="_s.button()">Continue</button>
