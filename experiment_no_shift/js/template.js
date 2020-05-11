@@ -22,21 +22,26 @@ function make_slides(f) {
       $(".err").hide();
       this.stim = stim;
       // from local-utils.js
-      var audio = $("<audio />")
-        .addClass("stim_audio")
-        .attr("src", "audio/continua/" + stim.stim_audio)
-        .attr("autoplay", true)
+      $('<audio />')
+      .attr("src", "audio/context/" + stim.context_audio)
+      .attr("autoplay", true)
+      .on("ended", function() {
+        var audio = $("<audio />")
+          .attr("src", "audio/continua/" + stim.stim_audio)
+          .attr("autoplay", true)
 
-      var target_option = build_trial_option(stim.target_image, "target")
-      var competitor_option = build_trial_option(stim.comp_image, "competitor")
-      var options = _.shuffle([target_option, competitor_option])
+        var target_option = build_trial_option(stim.target_image, "target")
+        var competitor_option = build_trial_option(stim.comp_image, "competitor")
+        var options = _.shuffle([target_option, competitor_option])
 
-      $(".display_condition")
-        .append(audio)
+        $(".display_condition")
+          .append(audio)
 
-      $(".exposure_options_container")
-        .append(options[0])
-        .append(options[1])
+        $(".exposure_options_container")
+          .append(options[0])
+          .append(options[1])
+      })
+
     },
     button : function() {
       // TODO capture val of image radio button
@@ -46,12 +51,15 @@ function make_slides(f) {
         $(".err").show();
       } else {
         // play continuation audio
-
-        // cleanup
-        $(".stim_audio").remove()
-        $(".exposure_options_container").children().remove()
-        this.log_responses();
-        _stream.apply(this);
+        $('<audio />')
+          .attr("src", "audio/continuation/" + this.stim.continuation_audio)
+          .attr("autoplay", true)
+          .on("ended", function() {
+            // cleanup
+            $(".exposure_options_container").children().remove()
+            this.log_responses();
+            _stream.apply(this);
+          }.bind(this))
       }
     },
     log_responses : function() {
