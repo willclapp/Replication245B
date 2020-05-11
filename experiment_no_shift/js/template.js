@@ -62,6 +62,13 @@ function make_slides(f) {
     }
   });
 
+  slides.second_instructions = slide({
+    name: "second_instructions",
+    button: function() {
+      exp.go()
+    }
+  })
+
   slides.trial = slide({
     name: "trial",
     present: exp.trial_stims,
@@ -160,7 +167,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "exposure", "trial", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "exposure", "second_instructions", "trial", 'subj_info', 'thanks'];
 
   exp.data_trials = [];
   //make corresponding slides:
