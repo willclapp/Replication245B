@@ -20,3 +20,4 @@ function build_trial_option(img_path, type) {
 
 	return trial_option
 }
+

@@ -23,10 +23,21 @@
 // ]
 
 
-var stimuli = [
+var exposure_stimuli = [
 	{
+		context_audio: 'path',
+		stim_audio: 'cake-2-3-9.wav',
 		target_image: 'butterfly_good.jpeg',
 		comp_image: 'butterfly_bad.jpeg',
+		continuation_audio: 'path',
+		exposure: true
+	}
+]
+
+var trial_stimuli = [
+	{
 		stim_audio: 'cake-2-3-9.wav',
+		target_image: 'butterfly_good.jpeg',
+		comp_image: 'butterfly_bad.jpeg',
 	}
 ]
