@@ -2,11 +2,11 @@ function make_slides(f) {
   var   slides = {};
 
   slides.i0 = slide({
-     name : "i0",
-     start: function() {
-      exp.startT = Date.now();
-     }
-  });
+   name : "i0",
+   start: function() {
+    exp.startT = Date.now();
+  }
+});
 
   slides.instructions = slide({
     name : "instructions",
@@ -21,25 +21,29 @@ function make_slides(f) {
     present_handle: function(stim) {
       $(".err").hide();
       this.stim = stim;
+      $(".exposure_button")
+      .attr("disabled", true)
       // from local-utils.js
       $('<audio />')
       .attr("src", "audio/context/" + stim.context_audio)
       .attr("autoplay", true)
       .on("ended", function() {
+        $(".exposure_button")
+        .attr("disabled", false)
         var audio = $("<audio />")
-          .attr("src", "audio/continua/" + stim.stim_audio)
-          .attr("autoplay", true)
+        .attr("src", "audio/continua/" + stim.stim_audio)
+        .attr("autoplay", true)
 
         var target_option = build_trial_option(stim.target_image, "target")
         var competitor_option = build_trial_option(stim.comp_image, "competitor")
         var options = _.shuffle([target_option, competitor_option])
 
         $(".display_condition")
-          .append(audio)
+        .append(audio)
 
         $(".exposure_options_container")
-          .append(options[0])
-          .append(options[1])
+        .append(options[0])
+        .append(options[1])
       })
 
     },
@@ -51,10 +55,12 @@ function make_slides(f) {
         $(".err").show();
       } else {
         // play continuation audio
+        $(".exposure_button")
+        .attr("disabled", true)
         $('<audio />')
-          .attr("src", "audio/continuation/" + this.stim.continuation_audio)
-          .attr("autoplay", true)
-          .on("ended", function() {
+        .attr("src", "audio/continuation/" + this.stim.continuation_audio)
+        .attr("autoplay", true)
+        .on("ended", function() {
             // cleanup
             $(".exposure_options_container").children().remove()
             this.log_responses();
@@ -83,20 +89,26 @@ function make_slides(f) {
     present_handle: function(stim) {
       $(".err").hide();
       this.stim = stim;
+      $(".trial_button")
+      .attr("disabled", true)
       var audio = $("<audio />")
-        .attr("src", "audio/continua/" + stim.stim_audio)
-        .attr("autoplay", true)
+      .attr("src", "audio/continua/" + stim.stim_audio)
+      .attr("autoplay", true)
+      .on("ended", function() {
+        $(".trial_button")
+        .attr("disabled", false)
+      })
 
       var target_option = build_trial_option(stim.target_image, "target")
       var competitor_option = build_trial_option(stim.comp_image, "competitor")
       var options = _.shuffle([target_option, competitor_option])
 
       $(".display_condition")
-        .append(audio)
+      .append(audio)
 
       $(".trial_options_container")
-        .append(options[0])
-        .append(options[1])
+      .append(options[0])
+      .append(options[1])
     },
     button : function() {
       // TODO capture val of image radio button
@@ -106,7 +118,6 @@ function make_slides(f) {
       } else {
         // play continuation audio
         // cleanup
-        $(".stim_audio").remove()
         $(".trial_options_container").children().remove()
         this.log_responses();
         _stream.apply(this);
@@ -143,12 +154,12 @@ function make_slides(f) {
     name : "thanks",
     start : function() {
       exp.data= {
-          "trials" : exp.data_trials,
-          "catch_trials" : exp.catch_trials,
-          "system" : exp.system,
-          "condition" : exp.condition,
-          "subject_information" : exp.subj_data,
-          "time_in_minutes" : (Date.now() - exp.startT)/60000
+        "trials" : exp.data_trials,
+        "catch_trials" : exp.catch_trials,
+        "system" : exp.system,
+        "condition" : exp.condition,
+        "subject_information" : exp.subj_data,
+        "time_in_minutes" : (Date.now() - exp.startT)/60000
       };
       setTimeout(function() {turk.submit(exp.data);}, 1000);
     }
@@ -167,13 +178,13 @@ function init() {
   exp.trial_stims = _.shuffle(trial_stimuli)
   exp.all_stims = exp.exposure_stims.concat(exp.trial_stims)
   exp.system = {
-      Browser : BrowserDetect.browser,
-      OS : BrowserDetect.OS,
-      screenH: screen.height,
-      screenUH: exp.height,
-      screenW: screen.width,
-      screenUW: exp.width
-    };
+    Browser : BrowserDetect.browser,
+    OS : BrowserDetect.OS,
+    screenH: screen.height,
+    screenUH: exp.height,
+    screenW: screen.width,
+    screenUW: exp.width
+  };
   //blocks of the experiment:
   exp.structure=["i0", "instructions", "exposure", "second_instructions", "trial", 'subj_info', 'thanks'];
 
