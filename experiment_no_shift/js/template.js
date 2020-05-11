@@ -22,22 +22,24 @@ function make_slides(f) {
       $(".err").hide();
       this.stim = stim;
       console.log(stim.audio);
-      var target_img = $("<img />")
-      target_img.attr("src", 'images/' + stim.target_image)
-      var comp_img = $("<img />")
-      comp_img.attr("src", 'images/' + stim.comp_image)
       var audio = $("<audio />")
         .attr("src", "audio/continua/" + stim.stim_audio)
         .attr("autoplay", true)
+      var target_option = build_trial_option(stim.target_image, "target")
+      var competitor_option = build_trial_option(stim.comp_image, "competitor")
+      var options = _.shuffle([target_option, competitor_option])
 
-      $(".display_condition").append(audio)
-      $(".target_img").append(target_img)
-      $(".comp_img").append(comp_img)
+      $(".display_condition")
+        .append(audio)
+
+      $(".trial_options_container")
+        .append(options[0])
+        .append(options[1])
 
 
     },
     button : function() {
-      this.response = $('input[name="pet"]:checked').val();
+      this.response = $('input[name="selection"]:checked').val();
       if (this.response == undefined) {
         $(".err").show();
       } else {
@@ -52,7 +54,6 @@ function make_slides(f) {
     },
     log_responses : function() {
       exp.data_trials.push({
-        "trial_type" : this.stim.phase,
         "participant_id" : uuidv4(),
         "response" : this.response
       });
