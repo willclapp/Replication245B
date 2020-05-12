@@ -1,6 +1,8 @@
 function make_slides(f) {
   var   slides = {};
 
+  
+
   slides.i0 = slide({
    name : "i0",
    start: function() {
@@ -19,6 +21,7 @@ function make_slides(f) {
     name: "exposure",
     present: exp.exposure_stims,
     present_handle: function(stim) {
+      console.log('phase', exp.phase)
       $(".err").hide();
       this.stim = stim;
       $(".exposure_button")
@@ -69,10 +72,11 @@ function make_slides(f) {
       }
     },
     log_responses : function() {
-      exp.data_trials.push({
-        "participant_id" : uuidv4(),
+      exp.data_trials.push(Object.assign({
+        "slide_order": exp.phase-2,
+        "participant_id" : exp.uuid,
         "response" : this.response
-      });
+      }, this.stim));
     }
   });
 
@@ -124,10 +128,11 @@ function make_slides(f) {
       }
     },
     log_responses : function() {
-      exp.data_trials.push({
-        "participant_id" : uuidv4(),
+      exp.data_trials.push(Object.assign({
+        "slide_order": exp.phase-3,
+        "participant_id" : exp.uuid,
         "response" : this.response
-      });
+      }, this.stim));
     }
   })
 
@@ -173,6 +178,8 @@ function init() {
   exp.trials = [];
   exp.catch_trials = [];
 
+
+  exp.uuid = uuidv4()
   // variables imported from stims.js
   exp.exposure_stims = _.shuffle(exposure_stimuli)
   exp.trial_stims = _.shuffle(trial_stimuli)

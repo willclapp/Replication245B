@@ -1,0 +1,22 @@
+{
+  "name": "replication245b",
+  "version": "1.0.0",
+  "description": "kurumada replication",
+  "main": "import_csv.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willclapp/Replication245B.git"
+  },
+  "author": "will clapp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/willclapp/Replication245B/issues"
+  },
+  "homepage": "https://github.com/willclapp/Replication245B#readme",
+  "dependencies": {
+    "csv-parser": "^2.3.2"
+  }
+}
