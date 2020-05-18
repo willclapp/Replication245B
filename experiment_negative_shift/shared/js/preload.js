@@ -51,7 +51,6 @@ var preload = function(resources, options /* afterEach, after, width */) {
 
 		} else {
 			obj.src = filename;
-			document.body.appendChild(obj)
 		}
 	}
 	
