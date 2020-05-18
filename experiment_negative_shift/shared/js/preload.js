@@ -1,7 +1,9 @@
 var preload = function(resources, options /* afterEach, after, width */) {
+	console.log("resources ", resources)
 	var resources = resources.slice(),
 			finished = false,
 			numLoaded = 0;
+	console.log("sliced ", resources)
 	
 	if (!options) options = {};
 	
@@ -30,7 +32,8 @@ var preload = function(resources, options /* afterEach, after, width */) {
 		}
 		
 		obj.onload = function() {
-//			document.body.removeChild(this);
+			document.body.removeChild(this);
+			console.log("HERE")
 			afterEach(filename);
 			loadNext();
 		}
@@ -51,6 +54,8 @@ var preload = function(resources, options /* afterEach, after, width */) {
 
 		} else {
 			obj.src = filename;
+			console.log("loaded ", obj)
+			document.body.appendChild(obj)
 		}
 	}
 	

@@ -30,7 +30,7 @@ var preload = function(resources, options /* afterEach, after, width */) {
 		}
 		
 		obj.onload = function() {
-//			document.body.removeChild(this);
+			document.body.removeChild(this);
 			afterEach(filename);
 			loadNext();
 		}
