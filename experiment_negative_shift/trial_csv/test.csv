@@ -1,0 +1,13 @@
+index,group,item,what_spec,context_audio,continuum_step,stim_audio,continuation_audio,affirmative_cont,target_image,comp_image
+1,no_shift,mouse,none,none,2,mouse-2-2-2.wav,none,none,mouse_good.jpeg,mouse_bad.jpeg
+2,no_shift,rainbow,none,none,4,rainbow-2-2-4.wav,none,none,rainbow_good.jpeg,rainbow_bad.jpeg
+3,no_shift,skateboard,none,none,6,skateboard-2-3-6.wav,none,none,skateboard_good.jpeg,skateboard_bad.jpeg
+4,no_shift,sailboat,none,none,8,sailboat-2-1-8.wav,none,none,sailboat_good.jpeg,sailboat_bad.jpeg
+5,no_shift,sundial,none,none,9,sundial-2-2-9.wav,none,none,sundial_good.jpeg,sundial_bad.jpeg
+6,no_shift,spoon,none,none,10,spoon-2-2-10.wav,none,none,spoon_good.jpeg,spoon_bad.jpeg
+7,no_shift,railroad,none,none,11,railroad-2-2-11.wav,none,none,railroad_good.jpeg,railroad_bad.jpeg
+8,no_shift,shark,none,none,12,shark-2-3-12.wav,none,none,shark_good.jpeg,shark_bad.jpeg
+9,no_shift,zebra,none,none,13,zebra-2-3-13.wav,none,none,zebra_good.jpeg,zebra_bad.jpeg
+10,no_shift,tadpole,none,none,14,tadpole-2-1-14.wav,none,none,tadpole_good.jpeg,tadpole_bad.jpeg
+11,no_shift,monkey,none,none,15,monkey-2-2-15.wav,none,none,monkey_good.jpeg,monkey_bad.jpeg
+12,no_shift,wheel,none,none,16,wheel-2-2-16.wav,none,none,wheel_good.jpeg,wheel_bad.jpeg

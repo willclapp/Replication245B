@@ -21,9 +21,9 @@ index,group,item,what_spec,context_audio,continuum_step,stim_audio,continuation_
 20,no_shift,hammer,spec,hammer.wav,16,hammer-2-3-16.wav,hammer2_cont.wav,no,hammer_good.jpeg,hammer_bad.jpeg
 21,no_shift,horse,what,whatsthis.wav,11,horse-2-2-11.wav,horse1_cont.wav,yes,horse_good.jpeg,horse_bad.jpeg
 22,no_shift,horse,spec,horse.wav,15,horse-2-2-15.wav,horse2_cont.wav,no,horse_good.jpeg,horse_bad.jpeg
-23,no_shift,butterfly,what,whatsthis.wav,12,butterfly-2-1-12.wav,butterfly1_cont.wav,yes,butterfly_good.jpeg,butterfly_bad.jpeg
+23,no_shift,butterfly,what,whatsthis.wav,9,butterfly-2-1-9.wav,butterfly1_cont.wav,yes,butterfly_good.jpeg,butterfly_bad.jpeg
 24,no_shift,butterfly,what,whatsthis.wav,16,butterfly-2-1-16.wav,butterfly2_cont.wav,no,butterfly_good.jpeg,butterfly_bad.jpeg
-25,no_shift,reindeer,what,whatsthis.wav,12,reindeer-2-3-12.wav,reindeer1_cont.wav,yes,reindeer_good.jpeg,reindeer_bad.jpeg
+25,no_shift,reindeer,what,whatsthis.wav,9,reindeer-2-3-9.wav,reindeer1_cont.wav,yes,reindeer_good.jpeg,reindeer_bad.jpeg
 26,no_shift,reindeer,what,whatsthis.wav,15,reindeer-2-3-15.wav,reindeer2_cont.wav,no,reindeer_good.jpeg,reindeer_bad.jpeg
-27,no_shift,umbrella,what,whatsthis.wav,12,umbrella-2-2-12.wav,umbrella1_cont.wav,yes,umbrella_good.jpeg,umbrella_bad.jpeg
+27,no_shift,umbrella,what,whatsthis.wav,6,umbrella-2-2-6.wav,umbrella1_cont.wav,yes,umbrella_good.jpeg,umbrella_bad.jpeg
 28,no_shift,umbrella,what,whatsthis.wav,16,umbrella-2-2-16.wav,umbrella2_cont.wav,no,umbrella_good.jpeg,umbrella_bad.jpeg
