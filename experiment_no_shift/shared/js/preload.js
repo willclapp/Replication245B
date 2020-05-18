@@ -24,13 +24,18 @@ var preload = function(resources, options /* afterEach, after, width */) {
 		
 		if (filename.match(imageExp)) {
 			obj = new Image();
+		} else if (filename.match(audioExp)) {
+			obj = new Audio()
+			obj.addEventListener('canplaythrough', function() {
+				afterEach(filename)
+				loadNext()
+			}, false)
 		} else {
 			embedTag = true;
 			obj = document.createElement('iframe');
 		}
 		
 		obj.onload = function() {
-//			document.body.removeChild(this);
 			afterEach(filename);
 			loadNext();
 		}
