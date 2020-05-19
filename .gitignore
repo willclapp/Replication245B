@@ -24,3 +24,5 @@
 *mturk/
 *plan.xlsx
 *original_wav_audio/
+*.aws/
+*Submiterator/
