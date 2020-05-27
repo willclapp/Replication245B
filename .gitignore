@@ -26,3 +26,4 @@
 *original_wav_audio/
 *.aws/
 *Submiterator/
+*post_to_mturk.txt
