@@ -1,0 +1,206 @@
+---
+title: "Kurumada"
+author: "Will Clapp"
+date: "5/26/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(pwr)
+library(lme4)
+library(patchwork)
+library(languageR)
+library(MuMIn)
+library(car)
+library(powerMediation)
+
+```
+
+```{r}
+df.neg_subj_info <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/experiment_negative_shift/mturk/experiment-subject_information.csv")
+
+df.no_subj_info <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/experiment_no_shift/mturk/experiment-subject_information.csv")
+
+df.subj_info <- bind_rows(df.neg_subj_info, df.no_subj_info)
+```
+
+
+
+```{r}
+# df.neg_shift <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/experiment_negative_shift/mturk/experiment-trials.csv")
+# df.no_shift <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/experiment_no_shift/mturk/experiment-trials.csv")
+# df.data <- bind_rows(df.neg_shift, df.no_shift)
+# df.trials <- df.data %>%
+#   filter(affirmative_cont == "none")
+# df.trials <- df.trials %>%
+#   mutate("response_01" = ifelse(response == "target", 1, 0))
+# 
+# # mutate to center continuum steps
+# df.trials = df.trials %>% 
+#   mutate("cStep" = continuum_step - mean(continuum_step))
+# # 
+# write.csv(df.trials, "/Users/willclapp/Desktop/245B/Replication245B/analysis/csvs/trials.csv")
+
+
+df.trials <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/analysis/csvs/trials.csv")
+
+df.my_stims <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/analysis/csvs/my_stims.csv")
+df.original_stims <- read.csv("/Users/willclapp/Desktop/245B/Replication245B/analysis/csvs/original_stims.csv")
+
+```
+
+
+
+
+Visualize trial breakdown, original and new
+
+```{r}
+p1 = ggplot(data = df.original_stims,
+       mapping = aes(x = step,
+                     y = instances)) +
+  geom_col(aes(fill = follow)) +
+  facet_grid(cols = vars(condition)) +
+  theme_bw() +
+  labs(title = "Original distribution of exposure stimuli",
+       x = "Continuum step (noun-focus to verb-focus)",
+       y = "Number of exposure trials") +
+  scale_fill_manual(name = "Continuation phrase", 
+                      labels = c("Affirmative", "Negative"),
+                      values = c("#1d87b8", "#b31010")) +
+  scale_x_continuous(limits = c(0,13), breaks = c(seq(1, 12, 3), 12)) +
+  theme(legend.position = 'none')
+  
+
+p2 = ggplot(data = df.my_stims,
+       mapping = aes(x = step,
+                     y = instances)) +
+  geom_col(aes(fill = follow)) +
+  facet_grid(cols = vars(condition)) +
+  theme_bw() +
+  labs(title = "New distribution of exposure stimuli",
+       x = "Continuum step (noun-focus to verb-focus)",
+       y = "Number of exposure trials") +
+  scale_fill_manual(name = "Continuation phrase", 
+                      labels = c("Affirmative", "Negative"),
+                      values = c("#1d87b8", "#b31010")) +
+  scale_x_continuous(limits = c(0,17), breaks = c(seq(1, 16, 3)))
+
+p1+p2
+
+
+```
+
+
+```{r}
+
+df.test_good <- df.trials_good %>% 
+  group_by(group, continuum_step) %>% 
+  summarise(response = mean(response_01)) 
+
+
+```
+
+
+
+```{r}
+ggplot(data = df.test_good,
+       mapping = aes(x = continuum_step,
+                     y = response,
+                     color = group)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  scale_x_continuous(limits = c(1, 16),
+                     breaks = seq(2,16, by = 2)) +
+  labs(y = "Proportion of target response",
+       x = "Continuum step") 
+  scale_color_manual(name="Condition", values = c("#1d87b8", "#b31010")) 
+  # scale_fill_manual(name = "Continuation phrase", 
+  #                     labels = c("Affirmative", "Negative"),
+  #                     values = c("#1d87b8", "#b31010")) 
+
+  
+
+
+
+```
+
+
+
+
+
+
+```{r}
+glm.trials = glm(response_01 ~ 1 + group * cStep, 
+                     data = df.trials_good,
+                     family="binomial")
+
+summary(glm.trials)
+```
+
+```{r}
+glmer.simple = glmer(response_01 ~ 1 + cStep + (1 | item), 
+                     data = df.trials_good,
+                     family="binomial")
+
+summary(glmer.simple)
+
+```
+
+```{r}
+
+glmer.trials = glmer(response_01 ~ 1 + group * cStep + (1 | item), 
+                     data = df.trials_good,
+                     family="binomial")
+
+
+summary(glmer.trials)
+
+anova(glmer.simple, glm.trials)
+
+
+vif(glmer.trials)
+```
+
+So, for group, beta = 0.48, SE = 0.12, p < 0.001. And for step, beta = -0.08, SE = 0.02, p < 0.001. Positive value is target, negative is competitor.
+
+
+
+
+Filter out participants who messed up steps 2 & 4
+```{r}
+df.bad <- df.trials %>% 
+  filter(continuum_step == 2|continuum_step == 4) %>% 
+  group_by(participant_id) %>% 
+  summarise(response = mean(response_01)) %>% 
+  filter(response == 0)
+
+df.good <- df.trials %>% 
+  filter(continuum_step == 2|continuum_step == 4) %>% 
+  group_by(participant_id) %>% 
+  summarise(response = mean(response_01)) %>% 
+  filter(response != 0)
+
+df.trials_bad = df.trials %>% 
+  filter(participant_id %in% df.bad$participant_id)
+
+df.trials_good = df.trials %>% 
+  filter(participant_id %in% df.good$participant_id)
+
+
+```
+
+
+
+```{r}
+mean(df.trials$Answer.time_in_minutes)
+
+```
+
+
+
+
+
+
+
